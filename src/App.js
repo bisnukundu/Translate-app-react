@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react"
+import useApi from "./components/API/useApi"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    const Language = useApi();
+    const [langs, setLangs] = useState([]);
+    useEffect(() => {
+        Language
+            .then((data) => {
+                setLangs((prevState) => {
+                    return [...prevState, data.data.data.languages]
+                })
+            })
+            .catch((err) => {
+
+            })
+    },[])
+
+    return (
+        <>
+        {console.log(langs)}
+            <h1>Bisnu kundu</h1>
+        </>
+    )
 }
-
-export default App;
